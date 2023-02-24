@@ -84,14 +84,14 @@ for i in range(6):
 tasks = []
 
 # create Tasks
-mips_treshold = 90
+mips_treshold = 70
 for i in range(10):
     while True:
         length = randint(mips_treshold, 1000)
         deadline_min = length/mips_treshold
         deadline = randint(int(deadline_min), 2*int(deadline_min))
         task = Task(length, deadline)
-        if task.minimum_mips() <= 90:
+        if task.minimum_mips() <= mips_treshold:
             tasks.append(task)
             print(task.length, task.deadline, task.minimum_mips())
             break
