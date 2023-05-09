@@ -92,16 +92,16 @@ tasks = [
 # init workers data, with assumption equal portion of vm != same mips
 workers = [
     {
-        'name': "vm2",
-        'mips': 0.166361,
-        'mips_capacity': 0.166361,
+        'name': "vm1",
+        'mips': 100,
+        'mips_capacity': 100,
         'finished_at': 0,
         'start': 0,
     },
     {
-        'name': "vm1",
-        'mips': 0.210613,
-        'mips_capacity': 0.210613,
+        'name': "vm2",
+        'mips': 100,
+        'mips_capacity': 100,
         'finished_at': 0,
         'start': 0,
     }, 
