@@ -9,6 +9,8 @@
 package org.cloudbus.cloudsim;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -350,15 +352,22 @@ public class DatacenterBroker extends SimEntity {
 	protected void submitCloudlets() {
 		int vmIndex = 0;
 		List<Cloudlet> successfullySubmitted = new ArrayList<Cloudlet>();
+		List<Cloudlet> ownCloudlets = getCloudletList();
+		Comparator<Cloudlet> sortByLength = new Comparator<Cloudlet>() {
+			@Override
+			public int compare(Cloudlet cloudlet1, Cloudlet cloudlet2) {
+				return (int) (cloudlet1.getClassType() - cloudlet2.getClassType());
+			}
+		};
+		Collections.sort(ownCloudlets, sortByLength);
+		setCloudletList(ownCloudlets);
 		for (Cloudlet cloudlet : getCloudletList()) {
 			Vm vm;
 			// if user didn't bind this cloudlet and it has not been executed yet
 			if (cloudlet.getVmId() == -1) {
 				vm = getVmsCreatedList().get(vmIndex);
 			} else { // submit to the specific vm
-				vm = VmList.getById(getVmsCreatedList(), 0);
-				Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Sendingg cloudlet ",
-					cloudlet.getCloudletId(), " to VM #", vm.getId());
+				vm = VmList.getById(getVmsCreatedList(), cloudlet.getVmId());
 				if (vm == null) { // vm was not created
 					if(!Log.isDisabled()) {				    
 					    Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Postponing execution of cloudlet ",

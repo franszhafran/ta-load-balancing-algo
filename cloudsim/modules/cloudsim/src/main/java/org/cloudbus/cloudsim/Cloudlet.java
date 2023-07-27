@@ -52,6 +52,16 @@ public class Cloudlet {
      */
     private long cloudletLength;
 
+    private int deadline;
+
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
+    }
+
+    public int getDeadline() {
+        return this.deadline;
+    }
+
     /**
      * The input file size of this Cloudlet before execution (unit: in byte).
      * This size has to be considered the program + input data sizes.
